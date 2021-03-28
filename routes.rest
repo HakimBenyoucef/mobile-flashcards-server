@@ -1,0 +1,28 @@
+GET http://localhost:3000/quiz
+
+###
+
+GET http://localhost:3000/quiz/12
+
+
+###
+
+GET http://localhost:3000/user
+
+###
+
+GET http://localhost:3000/user/admin
+
+###
+
+POST http://localhost:3000/user/
+Content-Type: application/json
+
+{
+    "username": "hakim",
+    "password": "password"
+}
+
+###
+
+DELETE http://localhost:3000/user/hakim

@@ -1,19 +1,21 @@
 const express = require("express");
-const router = express.Router();
+const quizRouter = express.Router();
 
 // Getting all
-router.get("/", (req, res) => {
+quizRouter.get("/", (req, res) => {
   res.send("Hello world");
 });
 
 // Getting one
-router.get("/:id", (req, res) => {});
+quizRouter.get("/:id", (req, res) => {
+  res.send(req.params.id);
+});
 // Creating one
-router.post("/", (req, res) => {});
+quizRouter.post("/", (req, res) => {});
 // updating one
-router.patch("/", (req, res) => {});
+quizRouter.patch("/", (req, res) => {});
 
 // deleting one
-router.delete("/:id", (req, res) => {});
+quizRouter.delete("/:id", (req, res) => {});
 
-module.exports = router;
+module.exports = quizRouter;

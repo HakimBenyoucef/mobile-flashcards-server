@@ -12,15 +12,18 @@ const router = express.Router();
 // wrong callbacks that will never be called
 const TIMEOUT = 10000;
 
-app.use(express.json())
+app.use(express.json());
 
-const quizRouter = require("./routes/quizRouter")
-app.use('/quiz', quizRouter)
+const quizRouter = require("./routes/quizRouter");
+app.use("/quiz", quizRouter);
+const userRouter = require("./routes/userRouter");
+app.use("/user", userRouter);
+const cardRouter = require("./routes/cardRouter");
+app.use("/card", cardRouter);
 
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
-
 
 router.get("/is-mongoose-ok", function (req, res) {
   if (mongoose) {
@@ -362,7 +365,6 @@ router.post("/query-tools", function (req, res, next) {
     });
   });
 });
-
 
 // Error handler
 app.use(function (err, req, res, next) {
