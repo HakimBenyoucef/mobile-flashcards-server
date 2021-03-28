@@ -19,7 +19,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/user/hakim
+DELETE http://localhost:3000/quiz/test
 
 ###
 
@@ -35,12 +35,23 @@ POST http://localhost:3000/user/
 Content-Type: application/json
 
 {
+    "username": "admin",
+    "password": "fi9hM@liki"
+}
+
+###
+
+DELETE http://localhost:3000/user/admin
+
+###
+
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
     "username": "hakim",
     "password": "password"
 }
 
 ###
-
-DELETE http://localhost:3000/user/hakim
-
 

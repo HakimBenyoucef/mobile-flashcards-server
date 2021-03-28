@@ -2,6 +2,8 @@ const express = require("express");
 const userRouter = express.Router();
 const User = require("../models/user");
 
+const bcrypt = require("bcrypt");
+
 // Getting all
 userRouter.get("/", async (req, res) => {
   try {
@@ -23,11 +25,13 @@ userRouter.post("/", async (req, res) => {
   if (user != null) {
     return res.status(409).json({ message: "User already exists" });
   }
-  user = new User({
-    username: req.body.username,
-    password: req.body.password,
-  });
+
   try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    user = new User({
+      username: req.body.username,
+      password: hashedPassword,
+    });
     const newUser = await user.save();
     res.status(201).json(newUser);
   } catch (error) {
@@ -41,10 +45,26 @@ userRouter.patch("/", (req, res) => {});
 // deleting one
 userRouter.delete("/:username", getUser, async (req, res) => {
   try {
-    await res.user.remove();  
-    res.json({message: "User deleted successfully"})
+    await res.user.remove();
+    res.json({ message: "User deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+
+userRouter.post("/login", async (req, res) => {
+  const user = await User.findOne({ username: req.body.username });
+  if (user == null) {
+    return res.status(400).send("Cannot find user");
+  }
+  try {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      res.send("Success");
+    } else {
+      res.send("Not Allowed");
+    }
+  } catch {
+    res.status(500).send();
   }
 });
 
