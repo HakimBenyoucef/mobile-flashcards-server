@@ -14,7 +14,7 @@ quizRouter.get("/", async (req, res) => {
 });
 
 // Getting one
-quizRouter.get("/:name", getQuiz, (req, res) => {
+quizRouter.get("/:id", getQuiz, (req, res) => {
   res.json(res.quiz);
 });
 
@@ -38,7 +38,7 @@ quizRouter.post("/", async (req, res) => {
 quizRouter.patch("/", (req, res) => {});
 
 // deleting one
-quizRouter.delete("/:name", getQuiz, async (req, res) => {
+quizRouter.delete("/:id", getQuiz, async (req, res) => {
   try {
     await res.quiz.remove();
     res.json({ message: "Quiz deleted successfully" });
@@ -50,7 +50,7 @@ quizRouter.delete("/:name", getQuiz, async (req, res) => {
 async function getQuiz(req, res, next) {
   let quiz;
   try {
-    quiz = await Quiz.findOne({ name: req.params.name });
+    quiz = await Quiz.findOne({ _id: req.params.id });
     if (quiz == null) {
       return res.status(404).json({ message: "Quiz not found" });
     }
