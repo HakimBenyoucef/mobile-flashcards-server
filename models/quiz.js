@@ -5,7 +5,6 @@ const { Schema } = mongoose;
 
 const quizSchema = new Schema({
     name: { type: String, required: true },
-    cards: [card.cardSchema]
   });
 
 
