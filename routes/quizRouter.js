@@ -5,22 +5,22 @@ const Quiz = require("../models/quiz");
 
 // Getting all
 quizRouter.get("/", async (req, res) => {
-    try {
-        const quizzes = await Quiz.find({});
-        res.json(quizzes);
-      } catch (error) {
-        res.status(500).json({ message: error.message });
-      }
+  try {
+    const quizzes = await Quiz.find({});
+    res.json(quizzes);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // Getting one
 quizRouter.get("/:name", getQuiz, (req, res) => {
-    res.json(res.quiz);
+  res.json(res.quiz);
 });
 
 // Creating one
 quizRouter.post("/", async (req, res) => {
-    let quiz = await Quiz.findOne({ name: req.body.name });
+  let quiz = await Quiz.findOne({ name: req.body.name });
   if (quiz != null) {
     return res.status(409).json({ message: "Quiz already exists" });
   }
@@ -39,27 +39,26 @@ quizRouter.patch("/", (req, res) => {});
 
 // deleting one
 quizRouter.delete("/:name", getQuiz, async (req, res) => {
-    try {
-        await res.quiz.remove();  
-        res.json({message: "Quiz deleted successfully"})
-      } catch (error) {
-        res.status(500).json({ message: error.message });
-      }
+  try {
+    await res.quiz.remove();
+    res.json({ message: "Quiz deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-
 async function getQuiz(req, res, next) {
-    let quiz;
-    try {
-      quiz = await Quiz.findOne({ name: req.params.name });
-      if (quiz == null) {
-        return res.status(404).json({ message: "Quiz not found" });
-      }
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  let quiz;
+  try {
+    quiz = await Quiz.findOne({ name: req.params.name });
+    if (quiz == null) {
+      return res.status(404).json({ message: "Quiz not found" });
     }
-    res.quiz = quiz;
-    next();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
+  res.quiz = quiz;
+  next();
+}
 
 module.exports = quizRouter;

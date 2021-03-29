@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const cardSchema = require("./card");
+const card = require("./card");
 
 const { Schema } = mongoose;
 
 const quizSchema = new Schema({
     name: { type: String, required: true },
-    cards: [cardSchema]
+    cards: [card.cardSchema]
   });
 
 

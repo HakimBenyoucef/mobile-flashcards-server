@@ -1,0 +1,26 @@
+GET http://localhost:3000/card
+
+###
+
+GET http://localhost:3000/card/6061bd2c0e6d455498540f26
+
+###
+
+GET http://localhost:3000/card/test
+
+###
+
+POST http://localhost:3000/card/
+Content-Type: application/json
+
+{
+    "question": "question exemple",
+    "answer": "bonne réponse",
+    "quiz": "6061bbab9e8eb74238b145f8",
+    "duree": 60
+}
+
+###
+
+DELETE http://localhost:3000/card/6061bd2c0e6d455498540f26
+

@@ -1,28 +1,3 @@
-GET http://localhost:3000/quiz
-
-###
-
-GET http://localhost:3000/quiz/12
-
-###
-
-GET http://localhost:3000/quiz/test
-
-###
-
-POST http://localhost:3000/quiz/
-Content-Type: application/json
-
-{
-    "name": "test"
-}
-
-###
-
-DELETE http://localhost:3000/quiz/test
-
-###
-
 GET http://localhost:3000/user
 
 ###
