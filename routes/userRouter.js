@@ -21,7 +21,7 @@ userRouter.get("/:username", getUser, (req, res) => {
 
 // Creating one
 userRouter.post("/", async (req, res) => {
-  let user = await User.findOne({ username: req.body.username });
+  let user = await User.findOne({ username: req.body.username.toLowerCase() });
   if (user != null) {
     return res.status(409).json({ message: "User already exists" });
   }
@@ -29,7 +29,7 @@ userRouter.post("/", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     user = new User({
-      username: req.body.username,
+      username: req.body.username.toLowerCase(),
       password: hashedPassword,
     });
     const newUser = await user.save();
@@ -53,7 +53,7 @@ userRouter.delete("/:username", getUser, async (req, res) => {
 });
 
 userRouter.post("/login", async (req, res) => {
-  const user = await User.findOne({ username: req.body.username });
+  const user = await User.findOne({ username: req.body.username.toLowerCase() });
   if (user == null) {
     return res.status(400).send("Cannot find user");
   }
@@ -71,7 +71,7 @@ userRouter.post("/login", async (req, res) => {
 async function getUser(req, res, next) {
   let user;
   try {
-    user = await User.findOne({ username: req.params.username });
+    user = await User.findOne({ username: req.params.username.toLowerCase() });
     if (user == null) {
       return res.status(404).json({ message: "User not found" });
     }
