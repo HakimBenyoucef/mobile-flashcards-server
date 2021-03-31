@@ -24,7 +24,7 @@ cardRouter.post("/", async (req, res) => {
     question: req.body.question,
     answer: req.body.answer,
     duree: req.body.duree,
-    quizId: req.body.quiz,
+    quizId: req.body.quizId,
   });
   try {
     const newCard = await card.save();
