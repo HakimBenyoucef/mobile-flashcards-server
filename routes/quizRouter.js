@@ -34,8 +34,19 @@ quizRouter.post("/", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
 // updating one
-quizRouter.patch("/", (req, res) => {});
+quizRouter.patch("/:id", getQuiz, async (req, res) => {
+  if (req.body.cards != null) {
+    res.quiz.cards = req.body.cards;
+  }
+  try {
+    const updatedQuiz = await res.quiz.save();
+    res.json(updatedQuiz);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 // deleting one
 quizRouter.delete("/:id", getQuiz, async (req, res) => {
