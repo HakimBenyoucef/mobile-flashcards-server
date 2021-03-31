@@ -53,7 +53,9 @@ userRouter.delete("/:username", getUser, async (req, res) => {
 });
 
 userRouter.post("/login", async (req, res) => {
-  const user = await User.findOne({ username: req.body.username.toLowerCase() });
+  const user = await User.findOne({
+    username: req.body.username.toLowerCase(),
+  });
   if (user == null) {
     return res.status(400).send("Cannot find user");
   }
@@ -61,7 +63,10 @@ userRouter.post("/login", async (req, res) => {
     if (await bcrypt.compare(req.body.password, user.password)) {
       res.send("Success");
     } else {
-      res.send("Not Allowed");
+      console.log("===> Not Allowed");
+      return new Promise((resolve, reject) => {
+        reject(new Error("Not Allowed"));
+      });
     }
   } catch {
     res.status(500).send();
